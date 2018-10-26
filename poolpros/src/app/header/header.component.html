@@ -1,0 +1,31 @@
+<header>
+    <div class="topbar">
+      <div class="container">
+        <ul class="list-unstyled list-inline list-inline">
+          <li><a href="#">Dealers and Distributors</a></li>
+          <li><a href="#">Commercial Service <img src="assets/images/action-commercial-icon.png"></a></li>
+        </ul>
+      </div>
+    </div>  
+    <div class="navbar">
+      <div class="container">
+        <span class="mobile-menu-wrap">
+        <div class="navbar-brand">
+          <img src="assets/images/pool-pros-logo.png">
+        </div>
+        <div class="mobile-visible mobile-menu">
+          <a href="#" class="btn"><img src="assets/images/location-icon.png"> Find A Pro</a>
+          <img src="assets/images/menu-icon-mobile.png" class="toggle" (click)="headerMenuShow()">
+        </div>
+        </span>
+        <ul class="navbar-nav list-unstyled list-inline {{ headerMenuState }}">
+          <div class="mobile-visible menu-title"><p>Menu</p> <span class="close-menu" (click)="headerMenuHide()"><i class="fas fa-times"></i></span></div>
+          <li><a href="#">Pools & Spas</a></li>
+          <li><a href="#">Supplies</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#" class="btn"><img src="assets/images/location-icon.png"> Find A Pool Pro</a></li>
+        </ul>
+      </div>
+    </div>
+</header>

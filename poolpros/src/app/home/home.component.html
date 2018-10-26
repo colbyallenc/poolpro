@@ -1,0 +1,123 @@
+	<div class="water-thumb">
+      <img src="assets/images/water-image.png">
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-results">{{ dealers?.length || '0' }} dealers in {{ dealersTmp?.length || '0' }}</span>
+      <div class="select-filter">
+        <span class="filter-title" (click)="showFilter(filterShowState)">Filter Results</span>
+        <span class="filter-opts {{ filterShow }}">
+        <label class="label-group">Service                                                                     
+          <input type="checkbox" [checked]="serviceCheck" (change)="filterResult($event, 'serviceCheck', 'Service Pro')">
+          <span class="checkmark"></span>
+        </label>
+        <label class="label-group">Installation
+          <input type="checkbox" [checked]="InstallationCheck" (change)="filterResult($event,'InstallationCheck','Installation Pro')">
+          <span class="checkmark"></span>
+        </label>
+        <label class="label-group">Residential
+          <input type="checkbox" [checked]="residentialCheck" (change)="filterResult($event, 'residentialCheck','Residential Pro')">
+          <span class="checkmark"></span>
+        </label>
+        <label class="label-group">Commercial
+          <input type="checkbox" [checked]="commercialCheck" (change)="filterResult($event, 'commercialCheck','Commercial Pro')">
+          <span class="checkmark"></span>
+          <span class="filter-info">?</span>
+        </label>
+        </span>
+      </div>
+    </div>
+
+    <section class="filter-listing">
+      <div class="container">
+        <div class="container-row" [@listStagger]="dealers">
+          <div class="col col-1-3" *ngFor="let dealer of dealers">
+            <div class="single-listing">
+              <div class="title">
+                <h2>{{ dealer.data.name }}</h2>
+              </div>
+              <div class="info"> 
+                <h3><a href="tel:{{ dealer.data.phone1 }}"><span><i class="fas fa-phone"></i></span> <span class="tap-call mobile-visible">Tap to call</span>{{ dealer.data.phone1 }}</a></h3>
+                <div class="info-msg"><p>Can't talk now? Click below to send an email.</p></div>
+                <a href="#" class="send-email btn" (click)="openModal(dealer.data)"><i class="fas fa-envelope"></i> Contact this Pro</a>
+              </div>
+              <div class="hours">
+                <span>Business Hours</span>
+                <ul class="list-unstyled">
+                  <li>Weekdays {{ dealer.data.weekHours.mon }}</li>
+                  <li *ngIf="dealer.data.weekHours.sat">Saturdays {{ dealer.data.weekHours.sat }}</li>
+                  <li *ngIf="dealer.data.weekHours.sun">Sundays {{ dealer.data.weekHours.sun }}</li>
+                </ul>
+              </div>
+              <div class="features">
+                <ul class="list-unstyled">
+                	<li *ngFor="let certifications of dealer.data.certifications">
+                		<i *ngIf="certifications == 'Installation Pro'" class="fas fa-star"></i> 
+                		<i *ngIf="certifications == 'Service Pro'" class="fas fa-cog"></i> 
+                		<i *ngIf="certifications == 'Residential Pro'" class="fas fa-home"></i> 
+                		<i *ngIf="certifications == 'Commercial Pro'" class="fas fa-users"></i> 
+                		{{ certifications }}
+                	</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+	<div id="contactModal" class="modal email-modal {{ modalState }}">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close-modal" (click)="closeModal()"><i class="fas fa-times"></i></span>
+				<p>Email</p>
+				<h3 class="dealerName">{{ modalActiveDealerName }}</h3>
+			</div>
+			<div class="modal-body">
+				<p>Fill out the form below and <span class="dealerName">{{ modalActiveDealerName }}</span> will get in touch.</p>
+				<form>
+					<div class="form-group">
+						<span class="filter-mark active"></span>
+						<label>First and last name</label>
+						<input class="form-control" type="text" ng-modal="name" (change)="inputChangeEvent(name)">
+					</div>
+					<div class="form-group phone-group">
+						<span class="filter-mark"></span>
+						<label>Phone</label>
+						<input class="form-control" type="tel">
+					</div>
+					<div class="form-group">
+						<span class="filter-mark"></span>
+						<label>Email</label>
+						<input class="form-control" type="email">
+					</div>
+					<div class="form-group">
+						<span class="requierd">optional</span>
+						<label>Comments or Questions</label>
+						<textarea class="" row=""></textarea>
+					</div>
+					<div class="form-group">
+						<span class="requierd">optional</span>
+						<label>Do you currently own a pool or spa?</label>
+						<div class="custom-radio">
+							<label class="radio-label">
+							  <input type="radio" checked="checked" name="radio">
+							  <span class="radio-checkmark">Yes</span>
+
+							</label>
+							<label class="radio-label">
+							  <input type="radio" name="radio">
+							  <span class="radio-checkmark">No</span>
+							</label>
+						</div>
+					</div>
+					<div class="form-submit">
+						<a href="#" class="submit-btn" (click)="submitData()">Send my email <i class="fas fa-angle-right"></i></a>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex.</p>
+			</div>
+		</div>
+	</div>
